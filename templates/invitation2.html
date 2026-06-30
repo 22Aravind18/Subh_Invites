@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meera &amp; Aarav — Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Marcellus&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+
+<!--
+  ============================================================
+  HOW TO REUSE FOR EVERY CLIENT
+  ============================================================
+  Scroll to <script id="config"> near the bottom. Edit ONLY that
+  block — names, date, photos, poetry line, story, events,
+  gallery, RSVP number, and the 2 accent colors. Duplicate this
+  file per client. This is "Midnight Luxe" — a dark, premium
+  sibling to the light maroon-gold royal template. Different
+  background, different motion, different mood entirely.
+  ============================================================
+-->
+
+<style>
+  :root{
+    --bg:#0B0B0D; --surface:#16161A; --surface2:#1D1D22;
+    --emerald:#0F6E4D; --emerald-light:#3FA582;
+    --gold:#D4AF6A; --gold-light:#EBD9A8;
+    --ink:#EDE7DD; --ink-soft:rgba(237,231,221,0.62); --ink-soft2:rgba(237,231,221,0.4);
+    --line:rgba(237,231,221,0.1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{ background:var(--bg); color:var(--ink); font-family:'Marcellus',serif; line-height:1.75; overflow-x:hidden; }
+  body.locked{ overflow:hidden; height:100vh; }
+  h1,h2,.display{ font-family:'Cinzel',serif; font-weight:600; letter-spacing:0.02em; }
+  .wrap{ max-width:680px; margin:0 auto; padding:0 24px; position:relative; z-index:2; }
+  img{ max-width:100%; display:block; }
+
+  .progress{ position:fixed; top:0; left:0; height:2px; width:0%; background:linear-gradient(90deg,var(--gold),var(--emerald-light)); z-index:500; }
+
+  /* ===================== GOLD DUST (ambient) ===================== */
+  #dust{ position:fixed; inset:0; pointer-events:none; z-index:5; overflow:hidden; }
+  .speck{ position:absolute; width:2px; height:2px; border-radius:50%; background:var(--gold-light); animation: twinkle ease-in-out infinite, riseSlow linear infinite; }
+  @keyframes twinkle{ 0%,100%{opacity:.1;} 50%{opacity:.9;} }
+  @keyframes riseSlow{ from{transform:translateY(0);} to{transform:translateY(-100vh);} }
+
+  /* ===================== INTRO / CURTAIN ===================== */
+  #gate{ position:fixed; inset:0; z-index:1000; display:flex; overflow:hidden; background:#000; }
+  .curtain{
+    width:52%; height:100%; position:relative;
+    background:
+      repeating-linear-gradient(90deg, #0B0B0D 0px, #16161A 14px, #0B0B0D 28px),
+      linear-gradient(180deg, #1a1208 0%, #0B0B0D 60%);
+    box-shadow: inset -30px 0 60px rgba(0,0,0,0.6);
+    transition: transform 1.1s cubic-bezier(.7,0,.2,1);
+  }
+  .curtain.l{ left:0; transform-origin:left; }
+  .curtain.r{ right:0; transform-origin:right; }
+  #gate.opening .curtain.l{ transform:translateX(-104%); }
+  #gate.opening .curtain.r{ transform:translateX(104%); }
+  #gate.hidden{ visibility:hidden; pointer-events:none; }
+  .spotlight{
+    position:absolute; top:0; left:50%; transform:translateX(-50%); width:420px; height:100%;
+    background:radial-gradient(ellipse at 50% 30%, rgba(212,175,106,0.16), transparent 60%);
+    z-index:1; pointer-events:none;
+  }
+  .gate-center{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:10; text-align:center; transition:opacity .35s ease; }
+  #gate.opening .gate-center{ opacity:0; }
+  .gate-gem{
+    width:64px; height:64px; margin:0 auto 24px; cursor:pointer; position:relative;
+    display:flex; align-items:center; justify-content:center;
+    transform:rotate(45deg); border:1.5px solid var(--gold); background:linear-gradient(135deg, rgba(212,175,106,0.25), transparent);
+    animation: gemPulse 2.6s ease-in-out infinite; transition:transform .3s;
+  }
+  .gate-gem::after{ content:""; position:absolute; inset:8px; border:1px solid rgba(212,175,106,0.4); }
+  .gate-gem:active{ transform:rotate(45deg) scale(.9); }
+  @keyframes gemPulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(212,175,106,0.25);} 50%{ box-shadow:0 0 0 16px rgba(212,175,106,0);} }
+  .gate-text{ color:var(--gold-light); font-family:'Cinzel',serif; font-size:1.2rem; letter-spacing:0.08em; }
+  .gate-hint{ color:var(--ink-soft2); font-size:0.68rem; text-transform:uppercase; letter-spacing:0.22em; margin-top:12px; }
+
+  /* ===================== HERO ===================== */
+  .hero{ min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px 24px; position:relative; z-index:2;
+    background:radial-gradient(ellipse at 50% 20%, #18181D 0%, var(--bg) 65%); }
+  .crest{ width:54px; height:54px; border:1px solid var(--gold); transform:rotate(45deg); margin:0 auto 26px; display:flex; align-items:center; justify-content:center; opacity:0; animation:riseIn .8s ease forwards .1s; }
+  .crest span{ transform:rotate(-45deg); color:var(--gold); font-size:1.1rem; }
+  .eyebrow{ font-size:0.72rem; text-transform:uppercase; letter-spacing:0.3em; color:var(--gold); font-weight:500; margin-bottom:22px; opacity:0; animation:riseIn .8s ease forwards .25s; }
+  .hero-photo-wrap{ position:relative; margin-bottom:28px; opacity:0; animation:riseIn .9s ease forwards .35s; }
+  .hero-photo-wrap::before{ content:""; position:absolute; inset:-8px; border:1px solid var(--gold); opacity:.5; }
+  .hero-photo{ width:188px; height:188px; object-fit:cover; filter:grayscale(.15) contrast(1.05); border:1px solid rgba(212,175,106,0.3); }
+  .hero h1{ font-size:clamp(2.3rem,6.6vw,3.7rem); line-height:1.2; margin-bottom:12px; color:var(--gold-light); opacity:0; animation:riseIn .9s ease forwards .5s; text-shadow:0 0 30px rgba(212,175,106,0.25); }
+  .hero h1 .amp{ color:var(--emerald-light); font-style:italic; font-family:'EB Garamond',serif; padding:0 12px; }
+  .hero .sub{ font-size:0.98rem; color:var(--ink-soft); margin-bottom:40px; font-family:'EB Garamond',serif; font-style:italic; opacity:0; animation:riseIn .8s ease forwards .65s; }
+  @keyframes riseIn{ to{opacity:1; transform:translateY(0);} from{transform:translateY(16px);} }
+
+  /* LED-style countdown */
+  .countdown{ display:flex; gap:0; opacity:0; animation:riseIn .8s ease forwards .8s; border:1px solid var(--line); }
+  .led{ padding:16px 22px; text-align:center; border-right:1px solid var(--line); }
+  .led:last-child{ border-right:none; }
+  .led-num{ font-family:'Cinzel',serif; font-size:1.5rem; color:var(--emerald-light); text-shadow:0 0 14px rgba(63,165,130,0.6); transition:text-shadow .3s; }
+  .led-num.bump{ text-shadow:0 0 26px rgba(63,165,130,0.95); }
+  .led-label{ display:block; font-size:0.58rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--ink-soft2); margin-top:6px; font-family:'Marcellus',serif; }
+
+  .scroll-cue{ position:absolute; bottom:20px; left:50%; transform:translateX(-50%); width:1px; height:40px; background:linear-gradient(180deg, var(--gold), transparent); opacity:0; animation:riseIn .8s ease forwards 1s; }
+
+  /* ===================== SECTIONS ===================== */
+  section{ padding:92px 0; position:relative; z-index:2; }
+  .section-label{ font-size:0.7rem; text-transform:uppercase; letter-spacing:0.26em; color:var(--gold); font-weight:500; text-align:center; margin-bottom:14px; }
+  .section-title{ text-align:center; font-size:clamp(1.7rem,4vw,2.3rem); color:var(--gold-light); margin-bottom:50px; }
+
+  .poetry{ text-align:center; padding:50px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .poetry .mark{ font-family:'EB Garamond',serif; font-size:2.6rem; color:var(--emerald-light); line-height:1; opacity:.6; }
+  .poetry p{ font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(1.2rem,2.8vw,1.6rem); color:var(--gold-light); max-width:520px; margin:14px auto 0; }
+  .poetry .by{ margin-top:18px; font-size:0.76rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); }
+
+  /* glowing pulse timeline */
+  .timeline{ position:relative; max-width:560px; margin:0 auto; padding-left:30px; }
+  .timeline::before{ content:""; position:absolute; left:5px; top:0; bottom:0; width:1px; background:var(--line); }
+  .timeline-progress{ position:absolute; left:5px; top:0; width:1px; height:0%; background:linear-gradient(180deg,var(--gold),var(--emerald)); box-shadow:0 0 10px rgba(212,175,106,0.6); transition:height .15s linear; }
+  .t-item{ position:relative; padding:0 0 46px 24px; }
+  .t-item:last-child{ padding-bottom:0; }
+  .t-dot{ position:absolute; left:-30px; top:3px; width:11px; height:11px; transform:rotate(45deg); background:var(--surface); border:1px solid var(--line); transition:all .5s ease; }
+  .t-item.in .t-dot{ background:var(--gold); border-color:var(--gold); box-shadow:0 0 14px rgba(212,175,106,0.7); }
+  .t-date{ font-family:'Cinzel',serif; color:var(--gold); font-size:0.92rem; font-weight:600; margin-bottom:4px; letter-spacing:0.04em; }
+  .t-item h3{ font-size:1.12rem; color:var(--gold-light); margin-bottom:5px; font-family:'Cinzel',serif; font-weight:500; }
+  .t-item p{ font-size:0.9rem; color:var(--ink-soft); font-family:'EB Garamond',serif; }
+
+  .events{ display:grid; gap:1px; background:var(--line); border:1px solid var(--line); }
+  .event-card{ background:var(--surface); padding:26px 28px; display:flex; gap:20px; align-items:flex-start; transition:background .3s ease; }
+  .event-card:hover{ background:var(--surface2); }
+  .event-icon{ font-size:1.2rem; color:var(--gold); font-family:'Cinzel',serif; flex-shrink:0; width:30px; }
+  .event-card h3{ color:var(--gold-light); font-size:1.15rem; margin-bottom:5px; font-family:'Cinzel',serif; font-weight:500; }
+  .event-card .meta{ font-size:0.85rem; color:var(--ink-soft); font-family:'EB Garamond',serif; }
+
+  /* cinematic film-strip gallery */
+  .gallery-rail{ position:relative; }
+  .gallery{ display:flex; gap:4px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:8px; scrollbar-width:none; }
+  .gallery::-webkit-scrollbar{ display:none; }
+  .frame{ flex:0 0 78%; max-width:340px; scroll-snap-align:center; position:relative; cursor:pointer; overflow:hidden; }
+  .frame img{ width:100%; height:230px; object-fit:cover; filter:grayscale(.55) contrast(1.05) brightness(.85); transition:filter .5s ease, transform .6s ease; }
+  .frame:hover img{ filter:grayscale(0) contrast(1.05) brightness(1); transform:scale(1.04); }
+  .frame::before, .frame::after{ content:""; position:absolute; top:0; bottom:0; width:14px; background-image:radial-gradient(circle, var(--bg) 3px, transparent 3.5px); background-size:14px 18px; z-index:2; }
+  .frame::before{ left:0; } .frame::after{ right:0; }
+  .frame-cap{ position:absolute; bottom:10px; left:22px; font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.1em; color:var(--gold-light); text-transform:uppercase; z-index:3; }
+
+  #lightbox{ position:fixed; inset:0; background:rgba(0,0,0,0.96); z-index:900; display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:opacity .3s ease, visibility .3s ease; }
+  #lightbox.active{ opacity:1; visibility:visible; }
+  #lightbox img{ max-width:88vw; max-height:78vh; box-shadow:0 20px 60px rgba(0,0,0,0.6); }
+  .lb-close,.lb-prev,.lb-next{ position:absolute; color:var(--gold-light); background:rgba(255,255,255,0.06); border:1px solid var(--line); width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.2rem; cursor:pointer; transition:background .2s; }
+  .lb-close:hover,.lb-prev:hover,.lb-next:hover{ background:rgba(255,255,255,0.15); }
+  .lb-close{ top:20px; right:20px; } .lb-prev{ left:20px; top:50%; transform:translateY(-50%); } .lb-next{ right:20px; top:50%; transform:translateY(-50%); }
+
+  /* RSVP — VIP pass style */
+  .rsvp{ background:var(--surface); border:1px solid var(--gold); position:relative; padding:54px 30px; text-align:center; overflow:hidden; }
+  .rsvp::before{ content:""; position:absolute; inset:6px; border:1px solid rgba(212,175,106,0.3); pointer-events:none; }
+  .rsvp .section-label{ color:var(--gold); }
+  .rsvp h2{ color:var(--gold-light); margin-bottom:14px; position:relative; }
+  .rsvp p{ color:var(--ink-soft); max-width:420px; margin:0 auto 30px; position:relative; font-family:'EB Garamond',serif; font-style:italic; }
+  .rsvp-btn{ display:inline-flex; align-items:center; gap:10px; background:transparent; color:var(--gold-light); border:1px solid var(--gold); padding:16px 34px; font-family:'Cinzel',serif; font-weight:500; font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; position:relative; transition:all .3s ease; }
+  .rsvp-btn:hover{ background:var(--gold); color:var(--bg); }
+  .rsvp-meta{ margin-top:24px; font-size:0.76rem; color:var(--ink-soft2); position:relative; font-family:'EB Garamond',serif; }
+
+  footer{ text-align:center; padding:54px 24px; font-size:0.8rem; color:var(--ink-soft2); position:relative; z-index:2; border-top:1px solid var(--line); }
+  footer .signoff{ font-family:'Cinzel',serif; font-size:1.1rem; letter-spacing:0.08em; color:var(--gold-light); margin-bottom:10px; display:block; }
+
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  @media(max-width:560px){
+    .led{ padding:12px 14px; } .led-num{ font-size:1.2rem; }
+    .frame{ flex:0 0 88%; }
+  }
+</style>
+</head>
+<body class="locked">
+
+<div class="progress" id="progress"></div>
+<div id="dust"></div>
+
+<!-- ===== OPENING CURTAIN ===== -->
+<div id="gate">
+  <div class="curtain l"></div>
+  <div class="curtain r"></div>
+  <div class="spotlight"></div>
+  <div class="gate-center">
+    <div class="gate-gem" id="sealBtn"></div>
+    <div class="gate-text" id="gateNames"></div>
+    <div class="gate-hint">Tap the gem to raise the curtain</div>
+  </div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="crest"><span>✦</span></div>
+  <div class="eyebrow" id="eyebrow"></div>
+  <div class="hero-photo-wrap"><img class="hero-photo" id="heroPhoto" alt=""></div>
+  <h1 id="heroNames"></h1>
+  <p class="sub" id="heroSub"></p>
+  <div class="countdown" id="countdown"></div>
+  <div class="scroll-cue"></div>
+</section>
+
+<section class="poetry reveal">
+  <div class="mark">❝</div>
+  <p id="poetryLine"></p>
+  <div class="by" id="poetryBy"></div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <div class="section-label" id="storyLabel"></div>
+    <h2 class="section-title" id="storyTitle"></h2>
+    <div class="timeline" id="timeline"><div class="timeline-progress" id="timelineProgress"></div></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <div class="section-label">Schedule</div>
+    <h2 class="section-title" id="eventsTitle"></h2>
+    <div class="events" id="events"></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <div class="section-label">Moments</div>
+    <h2 class="section-title">A Few Of Our Favourites</h2>
+    <div class="gallery-rail">
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <div class="rsvp">
+      <div class="section-label">Join Us</div>
+      <h2 id="rsvpTitle"></h2>
+      <p id="rsvpText"></p>
+      <a class="rsvp-btn" id="rsvpBtn" target="_blank" rel="noopener">RSVP on WhatsApp →</a>
+      <div class="rsvp-meta" id="rsvpMeta"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="signoff" id="footerSignoff"></span>
+  <span id="footerNote"></span>
+</footer>
+
+<div id="lightbox">
+  <div class="lb-close" id="lbClose">✕</div>
+  <div class="lb-prev" id="lbPrev">‹</div>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-next" id="lbNext">›</div>
+</div>
+
+<!-- ============================================================
+     EDIT EVERYTHING BELOW THIS LINE FOR EACH NEW CLIENT
+     ============================================================ -->
+<script id="config">
+const CONFIG = {
+  partner1: "Meera",
+  partner2: "Aarav",
+  eyebrow: "A Black-Tie Celebration of Love",
+  heroSub: "An evening of candlelight, champagne, and forever",
+  heroPhoto: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=600&q=80",
+
+  eventDateISO: "2026-09-20T19:00:00",
+
+  poetryLine: "Some loves arrive like dawn. Ours arrived like dusk — slow, certain, and golden.",
+  poetryBy: "— Meera & Aarav",
+
+  storyLabel: "Our Story",
+  storyTitle: "A Quiet Kind of Certainty",
+  timeline: [
+    { date: "2023", title: "Introduced", text: "Our families had known each other for years before we ever spoke." },
+    { date: "2024", title: "First conversation", text: "A two-hour phone call that was supposed to be twenty minutes." },
+    { date: "2025", title: "We knew", text: "A monsoon trip to Wayanad, and there was nothing left to decide." },
+    { date: "2026", title: "We begin", text: "Now, under candlelight, we ask you to witness it." }
+  ],
+
+  eventsTitle: "Celebration Details",
+  events: [
+    { icon: "I", name: "Sangeet Evening", date: "19th Sep 2026 · 7:00 PM", venue: "Taj Exotica, Goa — Lawn Deck" },
+    { icon: "II", name: "Wedding Ceremony", date: "20th Sep 2026 · 7:00 PM", venue: "Taj Exotica, Goa — Beachfront" },
+    { icon: "III", name: "Reception", date: "20th Sep 2026 · 9:30 PM", venue: "Taj Exotica, Goa — Grand Ballroom" }
+  ],
+
+  gallery: [
+    "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600&q=80",
+    "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=80",
+    "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=600&q=80",
+    "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?w=600&q=80"
+  ],
+
+  rsvpTitle: "Reserve Your Evening With Us",
+  rsvpText: "Kindly confirm your attendance by 5th September 2026.",
+  rsvpWhatsapp: "919999999999",
+  rsvpWhatsappMsg: "Hi! I'd love to confirm my attendance for Meera & Aarav's wedding.",
+  rsvpMeta: "Goa, India · Dress code: Black Tie",
+
+  footerSignoff: "Meera & Aarav",
+  footerNote: "Crafted by Subh Invites",
+
+  colors: { emerald: "#0F6E4D", emeraldLight: "#3FA582", gold: "#D4AF6A" }
+};
+</script>
+
+<script>
+  // ============================================================
+  // RENDER ENGINE — no need to touch this for normal orders
+  // ============================================================
+  const c = CONFIG;
+  document.documentElement.style.setProperty('--emerald', c.colors.emerald);
+  document.documentElement.style.setProperty('--emerald-light', c.colors.emeraldLight);
+  document.documentElement.style.setProperty('--gold', c.colors.gold);
+
+  document.getElementById('eyebrow').textContent = c.eyebrow;
+  document.getElementById('heroPhoto').src = c.heroPhoto;
+  document.getElementById('heroPhoto').alt = `${c.partner1} and ${c.partner2}`;
+  document.getElementById('heroNames').innerHTML = `${c.partner1}<span class="amp">&amp;</span>${c.partner2}`;
+  document.getElementById('heroSub').textContent = c.heroSub;
+  document.getElementById('gateNames').textContent = `${c.partner1} & ${c.partner2}`;
+
+  document.getElementById('poetryLine').textContent = c.poetryLine;
+  document.getElementById('poetryBy').textContent = c.poetryBy;
+
+  document.getElementById('storyLabel').textContent = c.storyLabel;
+  document.getElementById('storyTitle').textContent = c.storyTitle;
+  const timelineEl = document.getElementById('timeline');
+  c.timeline.forEach(t => {
+    const div = document.createElement('div');
+    div.className = 't-item reveal';
+    div.innerHTML = `<div class="t-dot"></div><div class="t-date">${t.date}</div><h3>${t.title}</h3><p>${t.text}</p>`;
+    timelineEl.appendChild(div);
+  });
+
+  document.getElementById('eventsTitle').textContent = c.eventsTitle;
+  document.getElementById('events').innerHTML = c.events.map(e => `
+    <div class="event-card">
+      <div class="event-icon">${e.icon}</div>
+      <div><h3>${e.name}</h3><div class="meta">${e.date}</div><div class="meta">${e.venue}</div></div>
+    </div>`).join('');
+
+  document.getElementById('gallery').innerHTML = c.gallery.map((src,i) => `
+    <div class="frame" data-idx="${i}"><img src="${src}" loading="lazy" alt=""><div class="frame-cap">${String(i+1).padStart(2,'0')} / ${String(c.gallery.length).padStart(2,'0')}</div></div>`).join('');
+
+  document.getElementById('rsvpTitle').textContent = c.rsvpTitle;
+  document.getElementById('rsvpText').textContent = c.rsvpText;
+  document.getElementById('rsvpMeta').textContent = c.rsvpMeta;
+  document.getElementById('rsvpBtn').href = `https://wa.me/${c.rsvpWhatsapp}?text=${encodeURIComponent(c.rsvpWhatsappMsg)}`;
+
+  document.getElementById('footerSignoff').textContent = c.footerSignoff;
+  document.getElementById('footerNote').textContent = c.footerNote;
+
+  /* ---------- opening curtain ---------- */
+  const gate = document.getElementById('gate');
+  const seal = document.getElementById('sealBtn');
+  seal.addEventListener('click', () => {
+    gate.classList.add('opening');
+    setTimeout(() => { gate.classList.add('hidden'); document.body.classList.remove('locked'); spawnDust(); }, 1200);
+  });
+
+  /* ---------- gold dust ---------- */
+  function spawnDust(){
+    const layer = document.getElementById('dust');
+    for(let i=0;i<35;i++){
+      const s = document.createElement('div');
+      s.className = 'speck';
+      s.style.left = Math.random()*100 + 'vw';
+      s.style.top = Math.random()*100 + 'vh';
+      const dur = 14+Math.random()*16;
+      s.style.animationDuration = (1.4+Math.random()*1.8)+'s, '+dur+'s';
+      s.style.animationDelay = (Math.random()*3)+'s, '+(Math.random()*dur)+'s';
+      layer.appendChild(s);
+    }
+  }
+
+  /* ---------- scroll progress ---------- */
+  const progress = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    progress.style.width = (h.scrollTop/(h.scrollHeight-h.clientHeight))*100 + '%';
+  });
+
+  /* ---------- LED countdown ---------- */
+  const countdownEl = document.getElementById('countdown');
+  const units = [['d','Days'],['h','Hrs'],['m','Min'],['s','Sec']];
+  units.forEach(u => {
+    const led = document.createElement('div'); led.className='led';
+    led.innerHTML = `<div class="led-num" id="cd-${u[0]}">00</div><span class="led-label">${u[1]}</span>`;
+    countdownEl.appendChild(led);
+  });
+  const target = new Date(c.eventDateISO);
+  let lastVals = {};
+  function tickCountdown(){
+    const diff = Math.max(0, target - new Date());
+    const vals = { d: Math.floor(diff/86400000), h: Math.floor((diff%86400000)/3600000), m: Math.floor((diff%3600000)/60000), s: Math.floor((diff%60000)/1000) };
+    Object.keys(vals).forEach(k => {
+      const el = document.getElementById('cd-'+k);
+      const padded = String(vals[k]).padStart(2,'0');
+      if(lastVals[k] !== padded){ el.textContent = padded; el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); lastVals[k] = padded; }
+    });
+  }
+  tickCountdown(); setInterval(tickCountdown, 1000);
+
+  /* ---------- scroll reveal + timeline draw ---------- */
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  const tProgress = document.getElementById('timelineProgress');
+  function updateTimelineDraw(){
+    const tl = document.getElementById('timeline');
+    const rect = tl.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const start = vh*0.85, end = vh*0.25;
+    let pct = (start - rect.top) / (rect.height + start - end);
+    pct = Math.max(0, Math.min(1, pct));
+    tProgress.style.height = (pct*100) + '%';
+  }
+  window.addEventListener('scroll', updateTimelineDraw);
+  updateTimelineDraw();
+
+  /* ---------- lightbox gallery ---------- */
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  let lbIndex = 0;
+  function openLightbox(i){ lbIndex = i; lbImg.src = c.gallery[i]; lightbox.classList.add('active'); }
+  function closeLightbox(){ lightbox.classList.remove('active'); }
+  function navLightbox(dir){ lbIndex = (lbIndex+dir+c.gallery.length)%c.gallery.length; lbImg.src = c.gallery[lbIndex]; }
+  document.querySelectorAll('.frame').forEach(item => item.addEventListener('click', () => openLightbox(+item.dataset.idx)));
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  document.getElementById('lbPrev').addEventListener('click', () => navLightbox(-1));
+  document.getElementById('lbNext').addEventListener('click', () => navLightbox(1));
+  lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if(!lightbox.classList.contains('active')) return;
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowLeft') navLightbox(-1);
+    if(e.key === 'ArrowRight') navLightbox(1);
+  });
+</script>
+</body>
+</html>
+
